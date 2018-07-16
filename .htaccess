@@ -1,0 +1,24 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+    RewriteEngine On
+    RewriteBase / 
+# http://www.zeilenwechsel.de/it/articles/8/Using-mod_rewrite-in-.htaccess-files-without-knowing-the-RewriteBase.html 
+# that sort of explains why the rewritebase works 
+# basically, I don't really understand where my site is in Bluehost, 
+# so I just said whatever directory my index.php file and htaccess file is 
+# in, that's the root, and I rewrote it as "/"
+# it's SUPPOSED TO BE: 
+   # change above to your site i.e.,  RewriteBase /whatever/public/
+# But that just didn't work at all for anything but the homepage
+
+    # Redirect Trailing Slashes...
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>

@@ -1,0 +1,499 @@
+$bor: .1rem solid pink;
+$main-b-img: "../images/main-b-img/skyline-bridge.jpg";
+
+%compat-flex {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-align-items: center;
+  align-items: center;
+}
+%center-flex {
+  @extend %compat-flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+%between-flex {
+  @extend %compat-flex;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+%around-flex {
+  @extend %compat-flex;
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+}
+%even-flex {
+  @extend %compat-flex;
+  -webkit-justify-content: space-evenly;
+  justify-content: space-evenly;
+}
+
+@mixin grad($col0, $col1, $col2) {
+    background: $col0; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient($col1, $col2); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient($col1, $col2); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient($col1, $col2);
+    background: linear-gradient($col1, $col2);
+}
+
+
+//MAIN  ////////////////////////////////////////////////////////////
+html, body {
+  font-family: Helvetica, sans-serif;
+  font-size: 16px;
+  margin: 0;
+  padding: 0; 
+  height: 100%;
+  min-width: 350px;
+  background: #222;
+  overflow: hidden;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-text-size-adjust: none; // attempt to fix mobil resizing
+}
+main { // takes care of the background image
+  background: #222;
+  background-image: url($main-b-img);
+  background-position: center top;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll; /* has to be scroll, not auto */
+  -webkit-overflow-scrolling: touch;
+  @extend %even-flex;
+}
+
+main::-webkit-scrollbar { width: 0 !important } // hides the scroll bar in chrome and safari
+                                                // while still allowing the mobile touch scroll to work
+
+header {
+  width: 100%;
+  @extend %between-flex;
+  @include grad(#222, #304040,#1E2929);
+  position: fixed;
+  z-index: 10;
+  -webkit-font-smoothing: antialiased; // fixes safari bolding glitch with aliasing 
+  .nav-title-link {
+    display: block;
+    text-decoration: none;
+    .nav-title-base {
+      width: auto;
+      display: block;
+      font-size: 1rem;
+      padding-left: 1rem;
+    }
+    .nav-title-style {
+      color: white;
+      font-weight: 400;
+      transform: skewX(-10deg);
+      transition: transform .25s, color .25s;
+    &:hover {
+        color: #DEDEDE;
+        transform: skewX(0deg);
+      }
+    }
+  }
+  nav {
+    width: auto;
+    margin: 0;
+    padding: 0;
+    //NOTE: do not add position: relative, it cause issues with animation
+    #menu-icon {
+      display: none;
+    }
+    #nav-items {
+      @extend %around-flex;
+      .nav-page-base, .nav-logo-base {
+        padding: 0 1.5rem;
+        text-decoration: none;
+      }
+      .nav-page-style {
+        color: #FFF;
+              border-right: .2rem solid white;
+        -webkit-transform: translateZ(0) scale(1.0, 1.0) skewX(-10deg); // fixes chrome aliasing
+        -webkit-backface-visibility: hidden; // this and prev line force chrom into 2d tranform
+        -webkit-font-smoothing: antialiased; // fixes safari bolding glitch with aliasing 
+        transform:  translateZ(0) scale(1.0, 1.0) skewX(-10deg);
+        transition: transform .25s, color .25s, border-right .25s;
+        &:hover {
+          color: #EEE;
+          transform: skewX(-1deg); // it's 1 not 0 to avoid resizing glitches
+          border-right: .2rem solid #DDD;
+        }
+      }
+      #social-section {
+        @extend %center-flex; 
+        margin: 0 1rem 0;
+        a {
+          display: block;
+          margin: 0;
+          padding: 0;
+          img {
+            display: block;
+            height: 1.25rem;
+            margin: 0 .5rem;
+            padding: 0;
+
+          }
+        }
+      }
+    }
+  }
+}
+#header-buffer {
+  height: 2rem;;
+}
+//homepage styles
+main {
+  .home-feat-img-base {
+    width: 25rem;
+    margin: 3rem;
+    transform: rotate(-5deg);
+    box-shadow: .4rem .4rem 1.5rem rgba(0,0,0,.5);
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+  #home-holder {
+    padding: 1rem 0 0;
+    height: 28rem;
+    width: 350px;
+    margin: 1rem 0;
+    @extend %center-flex;
+    .home-board-base, .home-buttons-base {
+      width: 100%;
+      background: #111;
+      background: rgba(0,0,0,0.9);
+    }
+    .home-board-base {
+      .home-headline-0-base, .home-headline-1-base, .home-subtitle-base, .home-quote-base {
+        font-family: Helvetica, sans-serif;
+        color: white;
+        text-align: center;
+        margin: 0;
+      }
+      .home-headline-0-base {
+        font-size: 5rem;
+        margin: .5rem auto -.5rem;
+      }
+      .home-headline-1-base {
+        font-size: 3.7rem;
+        margin-top: 0rem;
+      }
+      .home-subtitle-base, .home-quote-base {
+        font-family: Helvetica, sans-serif;
+        font-size: 2.25rem;
+        font-style: italic;
+        font-weight: 100;
+        margin: 1rem 0;
+      }
+      .home-quote-base {
+        font-weight: 100;
+        font-size: 1.5rem;
+        width: 80%;
+        margin: 1rem auto;
+      } 
+      hr {
+        width: 85%;
+      }
+    }
+    .home-buttons-base {
+      height: 4rem;
+      width: 90%;
+      margin: 1rem auto 3rem;
+      -webkit-align-self: flex-end;
+      align-self: flex-end;
+      @extend %even-flex;
+      .home-button-base {
+        width: 8rem;
+        height: 2rem;
+        color: white;
+        font-weight: 100;
+        font-size: 1rem;
+        text-decoration: none;
+        border: none;
+        border-radius: none;
+        @include grad(#359061,#359061, #184B2F);
+        &:hover {
+          @include grad(#359061,#184B2F,#359061);
+        }
+        &:active {
+          @include grad(#359061,#359061, #184B2F);
+        }
+      }
+    }
+  }
+}
+
+
+//the basic text page layout
+.std-page-bg {
+  width: 100%;
+  max-height: 80%;
+  overflow: auto;
+  background: rgba(255,255,255,.9);
+  .std-holder {
+    margin: 0 auto;
+    width: 90%;
+    height: 100%;
+    padding-bottom: 1rem;
+    .heading-holder {
+      @extend %compat-flex;
+      -webkit-flex-direction: row-reverse;
+      flex-direction: row-reverse;
+      margin: 0 auto;
+      width: 100%;
+      max-width: 50rem;
+      h1 {
+        display: block;
+        padding: 0 .5rem;
+        font-style: italic;
+        font-weight: 100;
+        color: #111;
+        border-bottom: .2rem solid #111;
+        span {
+          display: inline-block;
+          margin: 0;
+        }
+      }
+    }
+    #page-content {
+      margin: 0 auto 1rem;
+      width: 100%;
+      max-width: 60rem;
+      .sub-head-base {
+        margin: 1.5rem auto .5rem;
+        font-weight: 100;
+        font-style: italic;
+      }
+      .para-base {
+        color: #222;
+        width: 95%;
+        margin: 0 auto 1rem;
+        font-size: 1.2rem;
+        font-weight: 100;
+        text-align: justify;
+      }
+      #error-msg, #thank-you-msg, a {
+        font-weight: 100;
+        text-align: center;
+        width: 100%;    
+        display: block;
+      }
+      h3 {
+        font-weight: 100;
+        text-align: center;
+        a {
+          display: inline;
+        }
+    
+      }
+    }
+  }
+}
+#contact-page {
+  #contact-bg {
+    #contact-holder{
+      #page-content {
+        form {
+          @extend %between-flex;
+          width: 35rem;
+          @media screen and (max-width: 600px) {
+            width: 18.5rem;
+          }
+          margin: 0 auto;
+          div {
+            position: relative;
+            margin: 0rem 1rem;
+            //width: 16.5rem;
+            label, input, textarea{
+              display: block;
+              font-size: 1.2rem;
+            }
+            label {
+              margin: 1rem 0 .3rem;
+            }
+            input {
+              width: 8rem;
+              &:last-of-type {
+                width: 12rem;
+              }
+            }
+            textarea {
+              height: 8rem;
+            }
+          }
+          #submit-button {
+            width: 8rem;
+            margin: 1rem 40% .5rem;
+            height: 2rem;
+            color: white;
+            font-weight: 100;
+            font-size: 1rem;
+            text-decoration: none;
+            border: none;
+            @include grad(#359061,#359061, #184B2F);
+              &:hover {
+                @include grad(#359061,#184B2F,#359061);
+              }
+              &:active {
+                @include grad(#359061,#359061, #184B2F);
+              }
+          }
+        }
+        p {
+          margin: 0;
+          font-size: .9rem;
+          font-style: italic;
+          color: #555;
+          text-align: center;
+        }
+        #name-error, #email-error, #comments-error {
+          margin: .5rem 0 0;
+          height: 1rem;
+          color: #ff3333;
+          text-align: left;
+        }
+      }
+    }
+  }
+}
+
+
+#faq-page {
+}
+//reviews section
+#reviews-page {
+  width: 100%;
+  #reviews-bg {
+    width: 100%;
+    height: 40rem;
+    overflow: auto;
+    .reviews-holder-base {
+      #page-content {
+        width: 100%;
+        max-width: 100%; // overrides the standard maximum width of pages
+        height: 50rem;
+        margin: 0 auto;
+        display: flex;
+        flex-flow: column wrap;
+        align-items: center;
+        @media screen and (max-width: 1300px) {
+          height: 76rem;
+        }
+        @media screen and (max-width: 875px) {
+          height: auto !important;
+        }
+        .review-holder {
+          width: 350px;
+          //box-shadow: 0rem .5rem 1rem rgba(0,0,0,.1);
+          background: rgba(255,255,255,0.7);
+          margin: .5rem 0;
+          padding: 1rem;
+          .review-quote {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 100;
+          }
+          .review-author {
+            color: #666;
+            text-align: right;
+            font-style: italic;
+            span {
+
+              display: inline-block;
+            }
+          }
+          .line-holder {
+            margin: .1rem 0 .5rem;
+            @extend %center-flex;
+            hr {
+              width: 40%;
+              background: #AAA;
+            }
+        
+            img {
+              width: 2rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+#contact-page {
+
+}
+
+// queries for reviews page
+
+
+/* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
+@media screen and (max-width: 1050px) {
+  #nav.visible { //using the id because you had issues with properly overriding the styles
+    width: 100%;
+    display: block;
+    #nav-items {
+      display: block;
+      background: rgba(255,255,255,0.9);
+      position: fixed;
+      top: 2.45rem;
+      width: 100%;
+      .nav-page-base  {
+        border-right: none;
+        display: block;
+        text-align: center;
+        padding: .5rem 0;
+        color: #111;
+        font-weight: 100;
+        transform:  translateZ(0) scale(1.0, 1.0) skewX(0deg);
+        &:first-of-type {
+          padding-top: 1rem;
+        }
+        &:active {
+          background: gray;
+        }
+      }
+      #social-section {
+        margin: 0;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        a {
+          display: block;
+          padding: .5rem .5rem 1rem;
+        }
+      }
+    }
+  }
+  #nav.hidden {
+    #nav-items {
+      display: none;
+    } 
+
+  }
+  #nav { //using this # again to ensure proper override 
+    #menu-icon {
+      display: block;
+      position: fixed;
+      top: -.75rem;
+      right: .5rem;
+      font-size: 3rem;
+      padding: 0;
+      margin: 0;
+      color: white;
+      text-decoration: none;
+      &:active {
+        color: gray;
+      }
+    }
+  }
+}
+/* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
